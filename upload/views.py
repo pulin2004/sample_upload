@@ -12,7 +12,7 @@ def index(request):
 
 
 def upload_file(request):
-    if request.method == "POST":  # 请求方法为POST时，进行处理
+    if request.method == "POST":  # 请求方法为POST时，进行处理ok
         myFile = request.FILES.get("myfile", None)  # 获取上传的文件，如果没有文件，则默认为None
         if not myFile:
             c = RequestContext({"message_info": "upload fail!"})
