@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}上传页{% endblock %}
+{% block head %}
+<script type="text/javascript" src="/static/lib/fileinput.min.js"></script>
+<script type="text/javascript" src="/static/lib/zh.min.js"></script>
+<link href="/static/lib/fileinput.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
+   <hr>
+    <label class=""control-label">请选择要转换的商城订单：</label>
+
+        <form enctype="multipart/form-data" action="/upload/file/" method="post">
+            {% csrf_token %}
+           <input type="file" class="btn btn-default" name="myfile" />
+           <br/>
+           <input type="submit" class="btn btn-primary" value="上传"/>
+        </form>
+    <hr>
+
+
+{% endblock %}
