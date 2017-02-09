@@ -5,6 +5,6 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^file/', views.index, name='upload_file'),
+    url(r'^$', views.index),
+    url(r'^file/', views.upload_file),
 ]
