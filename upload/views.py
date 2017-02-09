@@ -3,7 +3,7 @@
 
 import os
 from django.shortcuts import render
-# 额外需要导入的模块
+# 额外需要导入的模块 ook
 from django.template import RequestContext
 
 # 表单
@@ -24,5 +24,4 @@ def upload_file(request):
         destination.close()
         return render(request, 'message.html',{"message": "上传成功!","message_detail":"处理成功！"})
 
-def upload_file2(request):
-    print("test url post!")
+
