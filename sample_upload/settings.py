@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """
 Django settings for sample_upload project.
 
@@ -89,8 +90,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # 或者使用 mysql.connector.django
         'NAME': 'mydb',
         'USER': 'myusr',
-        'PASSWORD': '123456',
-        'HOST':'192.168.19.134',
+        'PASSWORD': '123456', 
+        'HOST':'192.168.0.105',#'HOST':'192.168.19.134',
         'PORT':'3306',
     }
 }

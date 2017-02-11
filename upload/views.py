@@ -18,7 +18,7 @@ def upload_file(request):
         myFile = request.FILES.get("myfile", None)  # 获取上传的文件，如果没有文件，则默认为None
         if not myFile:
             return render(request, 'message.html',{"message": "上传失败!","message_detail":"错误的文件类型！"})
-        destination = open(os.path.join("C:\\Users\\lin.pu\\Documents\\temp\\files", myFile.name), 'wb+')  # 打开特定的文件进行二进制的写操作
+        destination = open(os.path.join("./temp", myFile.name), 'wb+')  # 打开特定的文件进行二进制的写操作
         for chunk in myFile.chunks():  # 分块写入文件
             destination.write(chunk)
         destination.close()
