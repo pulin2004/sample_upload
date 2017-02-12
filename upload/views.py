@@ -2,9 +2,18 @@
 # -*- coding:utf-8 -*-
 
 import os
+
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+import fileUtils
+import csv
+import time
+import random
 # 额外需要导入的模块 ook
 from django.template import RequestContext
+
+suffixType = ('csv');
+
 
 # 表单
 def index(request):
@@ -17,11 +26,47 @@ def upload_file(request):
     if request.method == "POST":  # 请求方法为POST时，进行处理ok
         myFile = request.FILES.get("myfile", None)  # 获取上传的文件，如果没有文件，则默认为None
         if not myFile:
-            return render(request, 'message.html',{"message": "上传失败!","message_detail":"错误的文件类型！"})
-        destination = open(os.path.join("./temp", myFile.name), 'wb+')  # 打开特定的文件进行二进制的写操作
-        for chunk in myFile.chunks():  # 分块写入文件
-            destination.write(chunk)
-        destination.close()
-        return render(request, 'message.html',{"message": "上传成功!","message_detail":"处理成功！"})
+            return render(request, 'message.html', {"message": "上传失败!", "message_detail": "没有上传文件！"})
+        sufix = fileUtils.getSufix(myFile.name)
+        if not fileUtils.isSameType(sufix,suffixType):
+            return render(request, 'message.html', {"message": "上传失败!", "message_detail": "不能解析%s文件！" % {sufix}})
+        first = True
+        orders={}
+        messageInfo = MessageInfo()
+        reader = csv.reader(myFile)
+        for line in reader:
+            if first:
+                first = False
+            else:
+                deal_line(line,orders,messageInfo)
+        if messageInfo.isSuccess():
+            downPath = 'kingdee_'+time.strftime('%Y%m%d-%H:%M:%S',time.localtime(time.time()))+'_'+str(random.randint(100,999))
+            wirteKingdeefile(orders,downPath)
+            return render(request, 'down.html', {"message": "上传成功!", "message_detail": messageInfo.getMessage(),"down_link":downPath})
+        else:
+            return render(request, 'errormessage.html',{"message": "处理失败!", "message_detail": messageInfo.getMessage()})
+    else:
+        return HttpResponseRedirect('/')
 
 
+def deal_line(line,orders,messageInfo):
+    pass
+
+def wirteKingdeefile(orders,path):
+    pass
+
+class MessageInfo:
+    def __init__(self):
+        self.__flag = True
+        self.__message ={}
+
+    def isSuccess(self):
+        return self.__flag
+
+    def getMessage(self):
+        return self.__message
+
+    def addMessage(self,status,lineNu,message):
+        if not status:
+            self.__flag =False
+        self.__message.update({lineNu:str(message)})
