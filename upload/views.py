@@ -56,6 +56,7 @@ def deal_line(line,orders,messageInfo):
     _order.compareAndWriteAttr('client_name',line[1])
     if _order._id:
         pass
+                      
 
 
 def getOrder(orders,_id):
