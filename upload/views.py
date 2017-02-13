@@ -9,8 +9,7 @@ import fileUtils
 import csv
 import time
 import random
-# 额外需要导入的模块 ook
-from django.template import RequestContext
+import orders
 
 suffixType = ('csv');
 
@@ -31,7 +30,7 @@ def upload_file(request):
         if not fileUtils.isSameType(sufix,suffixType):
             return render(request, 'message.html', {"message": "上传失败!", "message_detail": "不能解析%s文件！" % {sufix}})
         first = True
-        orders={}
+        orders=dict()
         messageInfo = MessageInfo()
         reader = csv.reader(myFile)
         for line in reader:
@@ -50,7 +49,20 @@ def upload_file(request):
 
 
 def deal_line(line,orders,messageInfo):
-    pass
+    if not line[0]:
+        return
+    _id = line[0]
+    _order = getOrder(orders,_id）
+    _order.compareAndWriteAttr('client_name',line[1])
+    if _order._id:
+        pass
+
+
+def getOrder(orders,_id):
+    if not orders.has_key(line[0]):
+        orders[_id]=Order()
+        orders[_id]._id = _id
+    return orders[_id]
 
 def wirteKingdeefile(orders,path):
     pass
