@@ -9,7 +9,9 @@ import fileUtils
 import csv
 import time
 import random
-import orders
+import upload.order
+
+from upload.order import Order
 
 suffixType = ('csv');
 
@@ -52,7 +54,7 @@ def deal_line(line,orders,messageInfo):
     if not line[0]:
         return
     _id = line[0]
-    _order = getOrder(orders,_id）
+    _order = getOrder(orders,_id)
     _order.compareAndWriteAttr('client_name',line[1])
     if _order._id:
         pass
@@ -60,7 +62,7 @@ def deal_line(line,orders,messageInfo):
 
 
 def getOrder(orders,_id):
-    if not orders.has_key(line[0]):
+    if not orders.has_key(_id):
         orders[_id]=Order()
         orders[_id]._id = _id
     return orders[_id]

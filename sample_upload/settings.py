@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': 'mydb',
         'USER': 'myusr',
         'PASSWORD': '123456', 
-        'HOST':'192.168.56.101',#'HOST':'192.168.19.134',
+        'HOST':'www.mydb122.myvm',#'HOST':'192.168.19.134',
         'PORT':'3306',
     }
 }
